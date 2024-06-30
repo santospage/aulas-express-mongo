@@ -1,4 +1,5 @@
-import post from '../models/Posts.js'
+import { category } from '../models/Category.js'
+import post from '../models/Post.js'
 
 class PostController {
   static async listPosts(req, res) {
@@ -6,7 +7,7 @@ class PostController {
       const listPosts = await post.find({})
       res.status(200).json(listPosts)
     } catch (e) {
-      res.status(500).json({ message: `${e.message} - falha na requisição` })
+      res.status(500).json({ message: `${e.message} - Falha na requisição` })
     }
   }
 
@@ -18,20 +19,33 @@ class PostController {
     } catch (e) {
       res
         .status(500)
-        .json({ message: `${e.message} - falha na requisição do livro` })
+        .json({ message: `${e.message} - Falha na requisição do post` })
+    }
+  }
+
+  static async listPostsByTitle(req, res) {
+    const title = req.query.title
+    try {
+      const postsByTitle = await post.find({ title })
+      res.status(200).json(postsByTitle)
+    } catch (e) {
+      res.status(500).json({ message: `${e.message} - Falha na busca do post` })
     }
   }
 
   static async createPosts(req, res) {
+    const newPost = req.body
     try {
-      const newPost = await post.create(req.body)
+      const categoryFound = await category.findById(newPost.category)
+      const fullPost = { ...newPost, category: { ...categoryFound._doc } }
+      const postCreated = await post.create(fullPost)
       res
         .status(201)
-        .json({ message: 'Post criado com sucesso', post: newPost })
+        .json({ message: 'Post criado com sucesso', post: postCreated })
     } catch (e) {
       res
         .status(500)
-        .json({ message: `${e.message} - falha na criação do post` })
+        .json({ message: `${e.message} - Falha na criação do post` })
     }
   }
 
@@ -43,7 +57,7 @@ class PostController {
     } catch (e) {
       res
         .status(500)
-        .json({ message: `${e.message} - falha na atualização do post` })
+        .json({ message: `${e.message} - Falha na atualização do post` })
     }
   }
 
@@ -55,7 +69,7 @@ class PostController {
     } catch (e) {
       res
         .status(500)
-        .json({ message: `${e.message} - falha na exclusão do post` })
+        .json({ message: `${e.message} - Falha na exclusão do post` })
     }
   }
 }

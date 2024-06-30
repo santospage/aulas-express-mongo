@@ -1,4 +1,5 @@
 import mongoose from 'mongoose'
+import { categorySchema } from './Category.js'
 
 const postSchema = new mongoose.Schema(
   {
@@ -8,7 +9,7 @@ const postSchema = new mongoose.Schema(
     date: { type: Date },
     resume: { type: String, required: true },
     image: { type: Object },
-    category: { type: String, required: true },
+    category: categorySchema,
   },
   { versionKey: false },
 )
