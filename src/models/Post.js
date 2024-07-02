@@ -1,5 +1,5 @@
-import mongoose from 'mongoose'
-import { categorySchema } from './Category.js'
+import mongoose from "mongoose"
+import { categorySchema } from "./Category.js"
 
 const postSchema = new mongoose.Schema(
   {
@@ -14,6 +14,6 @@ const postSchema = new mongoose.Schema(
   { versionKey: false },
 )
 
-const post = mongoose.model('posts', postSchema)
+const post = mongoose.model("posts", postSchema)
 
 export default post

@@ -1,7 +1,9 @@
-import { category } from '../models/Category.js'
+import mongoose from "mongoose"
+import { category } from "../models/Category.js"
 
 class CategoryController {
-  static async listCategories(req, res) {
+
+  static listCategories = async (req, res) => {
     try {
       const listCategories = await category.find({})
       res.status(200).json(listCategories)
@@ -10,23 +12,34 @@ class CategoryController {
     }
   }
 
-  static async listCategoryById(req, res) {
+  static listCategoryById = async (req, res) => {
     try {
       const id = req.params.id
       const categoryFound = await category.findById(id)
-      res.status(200).json(categoryFound)
+
+      if (categoryFound) {
+        res.status(200).json(categoryFound)
+      } else {
+        res.status(404).send({ message: "Id da Categoria não localizada" })
+      }
     } catch (e) {
-      res
-        .status(500)
-        .json({ message: `${e.message} - Falha na requisição da categoria` })
+      if (e instanceof mongoose.Error.CastError) {
+        res
+          .status(400)
+          .json({ message: "Um ou mais dados fornecidos estão incorretos" })
+      } else {
+        res
+          .status(500)
+          .json({ message: `${e.message} - Erro interno do servidor` })
+      }
     }
   }
 
-  static async createCategories(req, res) {
+  static createCategories = async (req, res) => {
     try {
       const newCategory = await category.create(req.body)
       res.status(201).json({
-        message: 'Categoria criada com sucesso',
+        message: "Categoria criada com sucesso",
         category: newCategory,
       })
     } catch (e) {
@@ -36,11 +49,11 @@ class CategoryController {
     }
   }
 
-  static async updateCategory(req, res) {
+  static updateCategory = async (req, res) => {
     try {
       const id = req.params.id
       await category.findByIdAndUpdate(id, req.body)
-      res.status(200).json({ message: 'Categoria atualizada com sucesso' })
+      res.status(200).json({ message: "Categoria atualizada com sucesso" })
     } catch (e) {
       res
         .status(500)
@@ -48,11 +61,11 @@ class CategoryController {
     }
   }
 
-  static async deleteCategory(req, res) {
+  static deleteCategory = async (req, res) => {
     try {
       const id = req.params.id
       await category.findByIdAndDelete(id)
-      res.status(200).json({ message: 'Categoria excluída com sucesso' })
+      res.status(200).json({ message: "Categoria excluída com sucesso" })
     } catch (e) {
       res
         .status(500)

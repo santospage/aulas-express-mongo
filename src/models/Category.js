@@ -1,4 +1,4 @@
-import mongoose from 'mongoose'
+import mongoose from "mongoose"
 
 const categorySchema = new mongoose.Schema(
   {
@@ -8,6 +8,6 @@ const categorySchema = new mongoose.Schema(
   { versionKey: false },
 )
 
-const category = mongoose.model('categories', categorySchema)
+const category = mongoose.model("categories", categorySchema)
 
 export { category, categorySchema }

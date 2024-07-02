@@ -1,6 +1,7 @@
-import mongoose from 'mongoose'
+import mongoose from "mongoose"
+import process from "process"
 
-const uri = process.env.DB_CONNECTION_STRING
+const uri = process.env.STRING_DB_CONNECTION
 
 async function connectToDatabase() {
   mongoose.connect(uri)

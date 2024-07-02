@@ -1,8 +1,9 @@
-import { category } from '../models/Category.js'
-import post from '../models/Post.js'
+import { category } from "../models/Category.js"
+import post from "../models/Post.js"
 
 class PostController {
-  static async listPosts(req, res) {
+
+  static listPosts = async (req, res) => {
     try {
       const listPosts = await post.find({})
       res.status(200).json(listPosts)
@@ -11,7 +12,7 @@ class PostController {
     }
   }
 
-  static async listPostById(req, res) {
+  static listPostById = async (req, res) => {
     try {
       const id = req.params.id
       const postFound = await post.findById(id)
@@ -23,7 +24,7 @@ class PostController {
     }
   }
 
-  static async listPostsByTitle(req, res) {
+  static listPostsByTitle = async (req, res) => {
     const title = req.query.title
     try {
       const postsByTitle = await post.find({ title })
@@ -33,7 +34,7 @@ class PostController {
     }
   }
 
-  static async createPosts(req, res) {
+  static createPosts = async (req, res) => {
     const newPost = req.body
     try {
       const categoryFound = await category.findById(newPost.category)
@@ -41,7 +42,7 @@ class PostController {
       const postCreated = await post.create(fullPost)
       res
         .status(201)
-        .json({ message: 'Post criado com sucesso', post: postCreated })
+        .json({ message: "Post criado com sucesso", post: postCreated })
     } catch (e) {
       res
         .status(500)
@@ -49,11 +50,11 @@ class PostController {
     }
   }
 
-  static async updatePost(req, res) {
+  static updatePost = async (req, res) => {
     try {
       const id = req.params.id
       await post.findByIdAndUpdate(id, req.body)
-      res.status(200).json({ message: 'Post atualizado com sucesso' })
+      res.status(200).json({ message: "Post atualizado com sucesso" })
     } catch (e) {
       res
         .status(500)
@@ -61,11 +62,11 @@ class PostController {
     }
   }
 
-  static async deletePost(req, res) {
+  static deletePost = async (req, res) => {
     try {
       const id = req.params.id
       await post.findByIdAndDelete(id)
-      res.status(200).json({ message: 'Post excluído com sucesso' })
+      res.status(200).json({ message: "Post excluído com sucesso" })
     } catch (e) {
       res
         .status(500)
