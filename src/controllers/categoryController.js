@@ -1,3 +1,4 @@
+import NotFound from "../errors/NotFund.js"
 import { category } from "../models/Category.js"
 
 class CategoryController {
@@ -19,7 +20,7 @@ class CategoryController {
       if (categoryFound) {
         res.status(200).json(categoryFound)
       } else {
-        res.status(404).send({ message: "Id da Categoria não localizada" })
+        next(new NotFound("Id da Categoria não localizada"))
       }
     } catch (e) {
       next(e)
