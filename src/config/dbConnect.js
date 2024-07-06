@@ -1,11 +1,11 @@
-import mongoose from "mongoose"
-import process from "process"
+import mongoose from "mongoose";
+import process from "process";
 
-const uri = process.env.STRING_DB_CONNECTION
+const uri = process.env.STRING_DB_CONNECTION;
 
 async function connectToDatabase() {
-  mongoose.connect(uri)
-  return mongoose.connection
+  mongoose.connect(uri);
+  return mongoose.connection;
 }
 
-export default connectToDatabase
+export default connectToDatabase;

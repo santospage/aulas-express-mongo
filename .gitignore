@@ -1,2 +1,16 @@
-node_modules
+# Arquivos e diretórios específicos para Node.js
+node_modules/
+npm-debug.log
+
+# Arquivo de ambiente
 .env
+
+# Arquivos gerados na build
+/build
+
+# Dependências do ESLint
+.eslintcache
+
+# Logs
+logs
+*.log*

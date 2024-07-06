@@ -1,13 +1,13 @@
 import RequestError from "./RequestError.js";
 
-class ValidationErro extends RequestError {
+class ValidationError extends RequestError {
   constructor(e) {
     const errorMensage = Object.values(e.errors)
       .map(e => e.message)
-      .join("; ")
+      .join("; ");
 
     super(`Os seguintes erros foram encontrados: ${errorMensage}`)
   }
 }
 
-export default ValidationErro
+export default ValidationError;

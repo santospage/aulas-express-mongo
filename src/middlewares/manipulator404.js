@@ -1,8 +1,8 @@
-import NotFound from "../errors/NotFund.js"
+import NotFound from "../errors/NotFound.js";
 
 function manipulator404(req, res, next) {
-  const error404 = new NotFound()
-  next(error404)
+  const error404 = new NotFound();
+  next(error404);
 }
 
-export default manipulator404
+export default manipulator404;
