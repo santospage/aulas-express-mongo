@@ -5,8 +5,9 @@ class CategoryController {
 
   static listCategories = async (req, res, next) => {
     try {
-      const listCategories = await category.find({});
-      res.status(200).json(listCategories);
+      const listCategories = category.find({});
+      req.result = listCategories;
+      next();
     } catch (e) {
       next(e);
     }

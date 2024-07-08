@@ -6,8 +6,9 @@ class PostController {
 
   static listPosts = async (req, res, next) => {
     try {
-      const listPosts = await post.find({});
-      res.status(200).json(listPosts);
+      const listPosts = post.find();
+      req.result = listPosts;
+      next();
     } catch (e) {
       next(e);
     }
@@ -31,10 +32,11 @@ class PostController {
     try {
       const search = await processSearch(req.query);
       if (search) {
-        const postsResult = await post
+        const postsResult = post
           .find(search)
           .populate("category");
-        res.status(200).send(postsResult);
+        req.result = postsResult;
+        next();
       } else {
         res.status(200).send([]);
       }
