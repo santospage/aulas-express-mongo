@@ -3,10 +3,10 @@ import { category } from "../models/Category.js";
 
 class CategoryController {
 
-  static listCategories = async (req, res, next) => {
+  static listCategory = async (req, res, next) => {
     try {
-      const listCategories = category.find({});
-      req.result = listCategories;
+      const listCategory = category.find({});
+      req.result = listCategory;
       next();
     } catch (e) {
       next(e);
@@ -27,7 +27,7 @@ class CategoryController {
     }
   }
 
-  static createCategories = async (req, res, next) => {
+  static createCategory = async (req, res, next) => {
     try {
       const newCategory = await category.create(req.body);
       res.status(201).json({
