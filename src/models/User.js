@@ -6,6 +6,7 @@ const userSchema = new mongoose.Schema(
     user: { type: String, required: [true, "O código de login é obrigatório"] },
     fullname: { type: String, required: [true, "O nome do usuário é obrigatório"] },
     password: { type: String, required: [true, "A senha é obrigatória"] },
+    salpass: { type: String, default: "" },
     email: { type: String }
   },
   { versionKey: false, timestamps: true },

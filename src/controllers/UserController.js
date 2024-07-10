@@ -1,5 +1,6 @@
 import NotFound from "../errors/NotFound.js";
 import user from "../models/User.js";
+import createHash from "../utils/createHash.js";
 
 class UserController {
 
@@ -29,7 +30,8 @@ class UserController {
 
   static createUser = async (req, res, next) => {
     try {
-      const newUser = await user.create(req.body);
+      const newBody = createHash(req.body)
+      const newUser = await user.create(newBody);
       res.status(201).json({
         message: "Usuário criado com sucesso",
         user: newUser,
