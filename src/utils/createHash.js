@@ -1,12 +1,9 @@
 import { randomBytes, scryptSync } from "crypto";
 
-function createHash(body) {
-  const pass = body["password"];
+function createHash(password) {
   const salPass = randomBytes(16).toString("hex");
-  const hashPass = scryptSync(pass, salPass, 64).toString("hex");
-  body["password"] = hashPass;
-  body["salpass"] = salPass;
-  return body;
+  const hashPass = scryptSync(password, salPass, 64).toString("hex");
+  return { password: hashPass, salpass: salPass };
 }
 
 export default createHash;

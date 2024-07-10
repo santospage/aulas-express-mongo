@@ -30,8 +30,10 @@ class UserController {
 
   static createUser = async (req, res, next) => {
     try {
-      const newBody = createHash(req.body)
-      const newUser = await user.create(newBody);
+      const hashPass = createHash(req.body.password)
+      req.body.password = hashPass.password;
+      req.body.salpass = hashPass.salpass;
+      const newUser = await user.create(req.body);
       res.status(201).json({
         message: "Usuário criado com sucesso",
         user: newUser,
