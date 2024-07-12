@@ -70,6 +70,11 @@ class UserController {
       next(e);
     }
   }
+
+  static findUser = async (userCode) => {
+    const userFound = user.findOne({ user: userCode });
+    return userFound;
+  }
 }
 
 export default UserController;
