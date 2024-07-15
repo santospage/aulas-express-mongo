@@ -6,7 +6,21 @@ class ClassController {
 
   static listClasses = async (req, res, next) => {
     try {
-      const listClasses = classes.find();
+      const listClasses = classes
+        .find({}, { title: 1, detail: 1, resume: 1 })
+        .populate("category");
+      req.result = listClasses;
+      next();
+    } catch (e) {
+      next(e);
+    }
+  }
+
+  static listClassesManagerial = async (req, res, next) => {
+    try {
+      const listClasses = classes
+        .find()
+        .populate("category");
       req.result = listClasses;
       next();
     } catch (e) {
@@ -17,7 +31,9 @@ class ClassController {
   static listClassById = async (req, res, next) => {
     try {
       const { id } = req.params;
-      const classFound = await classes.findById(id);
+      const classFound = await classes
+        .findById(id, { title: 1, detail: 1, resume: 1 })
+        .populate("category");
       if (classFound) {
         res.status(200).json(classFound);
       } else {
@@ -33,7 +49,7 @@ class ClassController {
       const search = await processSearch(req.query);
       if (search) {
         const classResult = classes
-          .find(search)
+          .find(search, { title: 1, detail: 1, resume: 1 })
           .populate("category");
         req.result = classResult;
         next();
